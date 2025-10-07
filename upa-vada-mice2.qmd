@@ -1,11 +1,10 @@
 ---
 title: "DSS Mouse Experiment 2 with Upa and Vada"
-format: html
+format: docx
 editor: visual
 ---
 
 ```{r setup}
-#| include: false
 library(tidyverse)
 library(readxl)
 library(janitor)
@@ -13,6 +12,8 @@ library(ggbeeswarm)
 ```
 
 ## DSS Mouse Experiment 2
+
+This experiment was to test Upa/Vada vs Upa alone vs. DSS colitis.
 
 This experiment used DSS in water at 3% for 8 days, rather than the planned 7, because the mice were slow to develop rectal bleeding. This led to only only one day of rest on regular drinking water.
 
@@ -32,7 +33,7 @@ Final data are from day 10 (sac day).
 
 ```{r}
 #| ecbo: false
-#| final data are from day 10 harvest
+
 dat <- readxl::read_xlsx("tidy data for vada-upa experiment2.xlsx") |> 
   clean_names() |> 
   mutate(rx = factor(rx, ordered = TRUE,

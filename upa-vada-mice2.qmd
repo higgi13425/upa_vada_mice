@@ -1,0 +1,140 @@
+---
+title: "DSS Mouse Experiment 2 with Upa and Vada"
+format: html
+editor: visual
+---
+
+```{r setup}
+#| include: false
+library(tidyverse)
+library(readxl)
+library(janitor)
+library(ggbeeswarm)
+```
+
+## DSS Mouse Experiment 2
+
+This experiment used DSS in water at 3% for 8 days, rather than the planned 7, because the mice were slow to develop rectal bleeding. This led to only only one day of rest on regular drinking water.
+
+Each arm of the study included C57BL6 male mice, 5 or 10 per group.
+
+The groups were:
+
+1.  Negative controls (no DSS, vehicle gavage) - 5 mice
+2.  Drug controls (no DSS, Upa 30 mpk, Vada 3 mpk) - 5 mice
+3.  DSS positive controls (DSS, vehicle) - 10 mice
+4.  DSS + Upa 30 mpk - group 5 - 10 mice (anti-inf rx)
+5.  DSS + Upa 30 mpk + vada 3 mpk - 10 mice (anti-inf + BET)
+
+## Read in Data
+
+Final data are from day 10 (sac day).
+
+```{r}
+#| ecbo: false
+#| final data are from day 10 harvest
+dat <- readxl::read_xlsx("tidy data for vada-upa experiment2.xlsx") |> 
+  clean_names() |> 
+  mutate(rx = factor(rx, ordered = TRUE,
+          levels = c("water+vehicle", "water+Vada/Upa",
+                     "DSS+vehicle", "DSS+Upa",
+                     "DSS+Vada/Upa")))
+```
+
+Let's compare the colon weights by group
+
+```{r}
+dat |> 
+  ggplot(aes(y= colon_weight, x = rx)) +
+  geom_boxplot() + 
+  geom_beeswarm() +
+  labs( x = "Treatment Group",
+        y = "Colon Weight in grams",
+        caption = "Comparisons with Student's t test") +
+  ggsignif::geom_signif(comparisons = list(
+    c(1,2), c(1,3), c(2,3), c(3,4), c(4,5), c(1,4),
+    c(1,5)),
+    test = "t.test",
+    step_increase = 0.1)
+```
+
+Now compare the colon lengths by group
+
+```{r}
+dat |> 
+  ggplot(aes(y= colon_length, x = rx)) +
+  geom_boxplot() + 
+  geom_beeswarm() +
+  labs( x = "Treatment Group",
+        y = "Colon Length in cm",
+        caption = "Comparisons with Student's t test") +
+  ggsignif::geom_signif(comparisons = list(
+    c(1,2), c(1,3), c(2,3), c(3,4), c(4,5), c(1,4),
+    c(1,5)),
+    test = "t.test",
+    step_increase = 0.1)
+```
+
+Now compare the colon 'density' (grams/cm) by group
+
+```{r}
+dat |> 
+  ggplot(aes(y= colon_density, x = rx)) +
+  geom_boxplot() + 
+  geom_beeswarm() +
+  labs( x = "Treatment Group",
+        y = "Colon 'Density' in grams/cm",
+        caption = "Comparisons with Student's t test") +
+  ggsignif::geom_signif(comparisons = list(
+    c(1,2), c(1,3), c(2,3), c(3,4), c(4,5), c(1,4),
+    c(1,5)),
+    test = "t.test",
+    step_increase = 0.1)
+```
+
+Now compare the spleen weight to body mass ratio by group
+
+```{r}
+dat |> 
+  ggplot(aes(y= spleen_wt_bw, x = rx)) +
+  geom_boxplot() + 
+  geom_beeswarm() +
+  labs( x = "Treatment Group",
+        y = "Spleen to Body Weight Ratio",
+        caption = "Comparisons with Student's t test") +
+  ggsignif::geom_signif(comparisons = list(
+    c(1,2), c(1,3), c(2,3), c(3,4), c(4,5), c(1,4),
+    c(1,5)),
+    test = "t.test",
+    step_increase = 0.1)
+```
+
+Now compare the day 10 Disease Activity Index
+
+```{r}
+dat |> 
+  ggplot(aes(y= day10_dia, x = rx)) +
+  geom_boxplot() + 
+  geom_beeswarm() +
+  labs( x = "Treatment Group",
+        y = "Day 10 Disease Activity Index",
+  caption = "Comparisons with Student's t test") +
+  ggsignif::geom_signif(comparisons = list(
+     c(1,3), c(2,3), c(3,4), c(4,5), c(1,4),
+    c(1,5)),
+    test = "t.test",
+    step_increase = 0.1)
+```
+
+Now compare the day 7 stool bleeding score
+
+```{r}
+dat |> 
+  ggplot(aes(y= day7_stool_bleeding, x = rx)) +
+  geom_boxplot() + 
+  geom_beeswarm() +
+  labs( x = "Treatment Group",
+        y = "Day 7 Stool Bleeding Score") 
+```
+
+Possibly need more recovery time - 4 days on water?

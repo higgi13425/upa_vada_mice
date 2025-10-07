@@ -1,1 +1,1 @@
-This is a README
+This is data from a Dextran Sulfate Sodium (DSS) induced colitis mouse model experiment. The dataset contains initial gross data from the colitis and harvested colons. The data includes measurements such as weight, length, and 'density' (grams/cm in length) of the colons, as well as bleeding scores and disease activity indices (DAI) for the mice. The data is organized in a tabular format with each row representing an individual mouse and its corresponding measurements.

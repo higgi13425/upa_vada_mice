@@ -20,7 +20,7 @@ Each arm of the study included C57BL6 male mice, 5 or 10 per group.
 
 The groups were:
 
-1.  Negative controls (no DSS, vehicle gavage) - 5 mice
+1.  Negative controls (no DSS, vehicle gavage) - 5 mice - one lost
 2.  Drug controls (no DSS, Upa 30 mpk, Vada 3 mpk) - 5 mice
 3.  DSS positive controls (DSS, vehicle) - 10 mice
 4.  DSS + Upa 30 mpk - group 5 - 10 mice (anti-inf rx)
@@ -58,6 +58,18 @@ dat |>
     step_increase = 0.1)
 ```
 
+Issues:
+
+-   not much colon weight gain in DSS
+
+-   colon wt loss in drug treated/ drug control
+
+-   NS more colon wt loss in upa treated
+
+-   signif more colon wt loss in double treated
+
+-   May need to normalize to body weight
+
 Now compare the colon lengths by group
 
 ```{r}
@@ -74,6 +86,18 @@ dat |>
     test = "t.test",
     step_increase = 0.1)
 ```
+
+Issues:
+
+-   some loss of length with drug control
+
+-   big loss of length with DSS
+
+-   partial restoration with Upa
+
+-   More length restoration with Vada/Upa, but a ways from normal colon - colon ends up shorter, less heavy
+
+-   May need to normalize to body weight
 
 Now compare the colon 'density' (grams/cm) by group
 
@@ -92,6 +116,8 @@ dat |>
     step_increase = 0.1)
 ```
 
+This makes sense - no difference with drug control, big spleen in DSS, partial recovery with Upa, more recovery with vada/upa - to nearly normal.
+
 Now compare the spleen weight to body mass ratio by group
 
 ```{r}
@@ -109,6 +135,8 @@ dat |>
     step_increase = 0.1)
 ```
 
+This makes sense - no difference with drug control, big spleen in DSS, partial recovery with Upa, more recovery with vada/upa - still not entirely normal.
+
 Now compare the day 10 Disease Activity Index
 
 ```{r}
@@ -125,6 +153,8 @@ dat |>
     test = "t.test",
     step_increase = 0.1)
 ```
+
+May need more recovery time - 4 days on water plus drugs?
 
 Now compare the day 7 stool bleeding score
 

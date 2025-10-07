@@ -185,7 +185,7 @@ dat |>
 
 May need more recovery time - 4 days on water plus drugs?
 
-#### Now compare the day 7 stool bleeding score 
+#### Now compare the day 7 stool bleeding score
 
 ```{r}
 dat |> 

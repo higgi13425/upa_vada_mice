@@ -12,6 +12,7 @@ library(tidyverse)
 library(readxl)
 library(janitor)
 library(ggbeeswarm)
+library(scales)
 ```
 
 ## DSS Mouse Experiment 2
@@ -40,9 +41,9 @@ Final data are from day 10 (sac day).
 dat <- readxl::read_xlsx("tidy data for vada-upa experiment2.xlsx") |> 
   clean_names() |> 
   mutate(rx = factor(rx, ordered = TRUE,
-          levels = c("water+vehicle", "water+Vada/Upa",
-                     "DSS+vehicle", "DSS+Upa",
-                     "DSS+Vada/Upa")))
+          levels = c("water+ vehicle", "water+ Vada/Upa",
+                     "DSS+  vehicle", "DSS+  Upa",
+                     "DSS+  Vada/Upa")))
 ```
 
 #### Need a body weight comparison here
@@ -62,13 +63,15 @@ dat |>
   geom_beeswarm() +
   labs( x = "Treatment Group",
         y = "Colon Weight in grams",
-        caption = "Comparisons with Student's t test", 
+        caption = "Pairwise Comparisons with Student's t test", 
         title = "Colon Weight by Treatment Group")+ 
   ggsignif::geom_signif(comparisons = list(
     c(1,2), c(1,3), c(2,3), c(3,4), c(4,5), c(1,4),
     c(1,5)),
     test = "t.test",
-    step_increase = 0.1)
+    step_increase = 0.1) +
+  scale_x_discrete(labels = label_wrap(6)) +
+  theme_linedraw(base_size = 16, base_family = "Arial")
 ```
 
 Issues:
@@ -92,13 +95,15 @@ dat |>
   geom_beeswarm() +
   labs( x = "Treatment Group",
         y = "Colon Length in cm",
-        caption = "Comparisons with Student's t test",
+        caption = "Pairwise Comparisons with Student's t test",
         title = "Colon Length by Treatment Group")+
   ggsignif::geom_signif(comparisons = list(
     c(1,2), c(1,3), c(2,3), c(3,4), c(4,5), c(1,4),
     c(1,5)),
     test = "t.test",
-    step_increase = 0.1)
+    step_increase = 0.1) +
+  scale_x_discrete(labels = label_wrap(6)) +
+  theme_linedraw(base_size = 16, base_family = "Arial")
 ```
 
 Issues:
@@ -122,13 +127,15 @@ dat |>
   geom_beeswarm() +
   labs( x = "Treatment Group",
         y = "Colon 'Density' in grams/cm",
-        caption = "Comparisons with Student's t test",
+        caption = "Pairwise Comparisons with Student's t test",
         title = "Colon 'Density' by Treatment Group")+
   ggsignif::geom_signif(comparisons = list(
     c(1,2), c(1,3), c(2,3), c(3,4), c(4,5), c(1,4),
     c(1,5)),
     test = "t.test",
-    step_increase = 0.1)
+    step_increase = 0.1) +
+  scale_x_discrete(labels = label_wrap(6)) +
+  theme_linedraw(base_size = 16, base_family = "Arial")
 ```
 
 This makes sense - no difference with drug control, big spleen in DSS, partial recovery with Upa, more recovery with vada/upa - to nearly normal.
@@ -142,13 +149,15 @@ dat |>
   geom_beeswarm() +
   labs( x = "Treatment Group",
         y = "Spleen to Body Weight Ratio",
-        caption = "Comparisons with Student's t test",
+        caption = "Pairwise Comparisons with Student's t test",
         title = "Spleen to Body Weight Ratio by Treatment Group") +
   ggsignif::geom_signif(comparisons = list(
     c(1,2), c(1,3), c(2,3), c(3,4), c(4,5), c(1,4),
     c(1,5)),
     test = "t.test",
-    step_increase = 0.1)
+    step_increase = 0.1) +
+  scale_x_discrete(labels = label_wrap(6)) +
+  theme_linedraw(base_size = 16, base_family = "Arial")
 ```
 
 This makes sense - no difference with drug control, big spleen in DSS, partial recovery with Upa, more recovery with vada/upa - still not entirely normal.
@@ -162,13 +171,15 @@ dat |>
   geom_beeswarm() +
   labs( x = "Treatment Group",
         y = "Day 10 Disease Activity Index",
-  caption = "Comparisons with Student's t test",
+  caption = "Pairwise Comparisons with Student's t test",
         title = "Day 10 DAI by Treatment Group") +
   ggsignif::geom_signif(comparisons = list(
      c(1,3), c(2,3), c(3,4), c(3,5), c(1,4),
     c(1,5)),
     test = "t.test",
-    step_increase = 0.1)
+    step_increase = 0.1) +
+  scale_x_discrete(labels = label_wrap(6)) +
+  theme_linedraw(base_size = 16, base_family = "Arial")
 ```
 
 May need more recovery time - 4 days on water plus drugs?
@@ -187,7 +198,9 @@ dat |>
   ggsignif::geom_signif(comparisons = list(
      c(1,3), c(2,3), c(3,4), c(3,5)),
     test = "t.test",
-    step_increase = 0.1)
+    step_increase = 0.1) +
+  scale_x_discrete(labels = label_wrap(6)) +
+  theme_linedraw(base_size = 16, base_family = "Arial")
 ```
 
 Possibly need more recovery time - 4 days on water?

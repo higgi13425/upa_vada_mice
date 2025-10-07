@@ -1,6 +1,9 @@
 ---
 title: "DSS Mouse Experiment 2 with Upa and Vada"
-format: docx
+format: 
+  html: 
+    code-fold: true
+  docx: default
 editor: visual
 ---
 
@@ -42,15 +45,15 @@ dat <- readxl::read_xlsx("tidy data for vada-upa experiment2.xlsx") |>
                      "DSS+Vada/Upa")))
 ```
 
-Need a body weight comparison here
+#### Need a body weight comparison here
 
-Graph BW by day
+#### Graph BW by day
 
-Graph blood by day
+#### Graph blood by day
 
-Graph DAI by Day
+#### Graph DAI by Day
 
-Let's compare the colon weights by group
+#### Let's compare the colon weights by group
 
 ```{r}
 dat |> 
@@ -80,7 +83,7 @@ Issues:
 
 -   May need to normalize to body weight
 
-Now compare the colon lengths by group
+#### Now compare the colon lengths by group
 
 ```{r}
 dat |> 
@@ -110,7 +113,7 @@ Issues:
 
 -   May need to normalize to body weight
 
-Now compare the colon 'density' (grams/cm) by group
+#### Now compare the colon 'density' (grams/cm) by group
 
 ```{r}
 dat |> 
@@ -130,7 +133,7 @@ dat |>
 
 This makes sense - no difference with drug control, big spleen in DSS, partial recovery with Upa, more recovery with vada/upa - to nearly normal.
 
-Now compare the spleen weight to body mass ratio by group
+#### Now compare the spleen weight to body mass ratio by group
 
 ```{r}
 dat |> 
@@ -150,7 +153,7 @@ dat |>
 
 This makes sense - no difference with drug control, big spleen in DSS, partial recovery with Upa, more recovery with vada/upa - still not entirely normal.
 
-Now compare the day 10 Disease Activity Index
+#### Now compare the day 10 Disease Activity Index
 
 ```{r}
 dat |> 
@@ -170,7 +173,7 @@ dat |>
 
 May need more recovery time - 4 days on water plus drugs?
 
-Now compare the day 7 stool bleeding score
+#### Now compare the day 7 stool bleeding score 
 
 ```{r}
 dat |> 

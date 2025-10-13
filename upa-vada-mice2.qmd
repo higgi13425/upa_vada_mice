@@ -48,7 +48,7 @@ dat <- readxl::read_xlsx("tidy data for vada-upa experiment2.xlsx") |>
                      "DSS+  Vada/Upa"))) |> 
   rename(ear_tag = mouse)
 
-dat_daily <- readxl::read_xlsx("BW blood sheet.xlsx") |> 
+dat_daily <- readxl::read_xlsx("BW blood data daily.xlsx") |> 
   janitor::clean_names() |> 
   mutate(mouse = as.factor(mice)) |> 
   mutate(ear_tag = as.factor(ear_tag)) |> 
@@ -89,7 +89,14 @@ daily2 |>
              group = mouse, color = rx)) +
   #geom_line() +
   #geom_point() +
-  geom_smooth(aes(group = rx), se = FALSE)
+  geom_smooth(aes(group = rx), se = FALSE) +
+  scale_color_manual(values = c("gray50", "black", "red", "purple", "blue")) +
+  scale_x_continuous(breaks = seq(0,10, by=2)) +
+  labs(color = "Treatment",
+       x = "Day",
+       y = "Stool blood (0-4)",
+       title = "Effect of Treatment on Mean Smoothed Daily Stool Blood Scores",
+       subtitle = "Vadadustat Delays Rectal Bleeding")
 ```
 
 #### 

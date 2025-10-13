@@ -71,7 +71,8 @@ daily2
 ```{r}
 daily2 |> 
   ggplot(aes(y = body_weight_g, x = day, 
-             group = mouse, color = rx)) +
+             group = mouse, color = rx)) + scale_color_manual(values = c("gray50", "black", "red", "purple", "blue")) +
+  scale_x_continuous(breaks = seq(0,10, by=2)) +
   #geom_line() +
   #geom_point() +
   geom_smooth(aes(group = rx), se = FALSE)
@@ -95,8 +96,8 @@ daily2 |>
   labs(color = "Treatment",
        x = "Day",
        y = "Stool blood (0-4)",
-       title = "Effect of Treatment on Mean Smoothed Daily Stool Blood Scores",
-       subtitle = "Vadadustat Delays Rectal Bleeding")
+       title = "Effect of Treatment on Smoothed Daily Mean Stool Blood Scores",
+       subtitle = "Vadadustat Delays Rectal Bleeding by ~ 1 Day")
 ```
 
 #### 

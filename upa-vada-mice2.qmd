@@ -35,6 +35,8 @@ The groups were:
 
 Final data are from day 10 (sac day).
 
+Daily data by mouse are from day 0 to day 10
+
 ```{r}
 #| ecbo: false
 
@@ -43,16 +45,58 @@ dat <- readxl::read_xlsx("tidy data for vada-upa experiment2.xlsx") |>
   mutate(rx = factor(rx, ordered = TRUE,
           levels = c("water+ vehicle", "water+ Vada/Upa",
                      "DSS+  vehicle", "DSS+  Upa",
-                     "DSS+  Vada/Upa")))
+                     "DSS+  Vada/Upa"))) |> 
+  rename(ear_tag = mouse)
+
+dat_daily <- readxl::read_xlsx("BW blood sheet.xlsx") |> 
+  janitor::clean_names() |> 
+  mutate(mouse = as.factor(mice)) |> 
+  mutate(ear_tag = as.factor(ear_tag)) |> 
+  select(-mice) |> 
+  relocate(mouse)
+
+dat |> select(ear_tag, rx) |> 
+  mutate(ear_tag = as.factor(ear_tag)) ->
+dat2
+
+dat_daily|> 
+  left_join(dat2, by = join_by(ear_tag)) ->
+daily2
 ```
 
 #### Need a body weight comparison here
 
 #### Graph BW by day
 
+```{r}
+daily2 |> 
+  ggplot(aes(y = body_weight_g, x = day, 
+             group = mouse, color = rx)) +
+  #geom_line() +
+  #geom_point() +
+  geom_smooth(aes(group = rx), se = FALSE)
+```
+
 #### Graph blood by day
 
+Note minimal blood delay with Upa,
+
+noticeably delayed blood when Vada added to Upa
+
+```{r}
+daily2 |> 
+  ggplot(aes(y = stool_blood, x = day, 
+             group = mouse, color = rx)) +
+  #geom_line() +
+  #geom_point() +
+  geom_smooth(aes(group = rx), se = FALSE)
+```
+
+#### 
+
 #### Graph DAI by Day
+
+??
 
 #### Let's compare the colon weights by group
 
@@ -72,6 +116,32 @@ dat |>
     step_increase = 0.12) +
   scale_x_discrete(labels = label_wrap(6)) +
   theme_linedraw(base_size = 16, base_family = "Arial")
+
+# try control for bw
+daily2 |> 
+  filter(day == 10) ->
+day10wt
+
+dat |>
+  mutate(ear_tag = as.factor(ear_tag)) |> 
+  left_join(day10wt) |> 
+  select(ear_tag, rx, colon_weight, body_weight_g) |> 
+  mutate(adj_colon_wt = colon_weight/body_weight_g) |> 
+  ggplot(aes(y= adj_colon_wt, x = rx)) +
+  geom_boxplot() + 
+  geom_beeswarm() +
+  labs( x = "Treatment Group",
+        y = "Colon Weight / body weight",
+        caption = "Pairwise Comparisons with Student's t test", 
+        title = "BW-adjusted Colon Weight by Treatment Group")+ 
+  ggsignif::geom_signif(comparisons = list(
+    c(1,2), c(1,3), c(3,4), c(3,5), c(4,5), c(1,4),
+    c(1,5)),
+    test = "t.test",
+    step_increase = 0.12) +
+  scale_x_discrete(labels = label_wrap(6)) +
+  theme_linedraw(base_size = 16, base_family = "Arial")
+  
 ```
 
 Issues:
@@ -97,6 +167,32 @@ dat |>
         y = "Colon Length in cm",
         caption = "Pairwise Comparisons with Student's t test",
         title = "Colon Length by Treatment Group")+
+  ggsignif::geom_signif(comparisons = list(
+    c(1,2), c(1,3), c(3,4), c(3,5), c(4,5), c(1,4),
+    c(1,5)),
+    test = "t.test",
+    step_increase = 0.12) +
+  scale_x_discrete(labels = label_wrap(6)) +
+  theme_linedraw(base_size = 16, base_family = "Arial")
+
+
+# try control for bw
+daily2 |> 
+  filter(day == 10) ->
+day10wt
+
+dat |>
+  mutate(ear_tag = as.factor(ear_tag)) |> 
+  left_join(day10wt) |> 
+  select(ear_tag, rx, colon_length, body_weight_g) |> 
+  mutate(adj_colon_len = colon_length/body_weight_g) |> 
+  ggplot(aes(y= adj_colon_len, x = rx)) +
+  geom_boxplot() + 
+  geom_beeswarm() +
+  labs( x = "Treatment Group",
+        y = "Colon Length / body weight",
+        caption = "Pairwise Comparisons with Student's t test", 
+        title = "BW-adjusted Colon Length by Treatment Group")+ 
   ggsignif::geom_signif(comparisons = list(
     c(1,2), c(1,3), c(3,4), c(3,5), c(4,5), c(1,4),
     c(1,5)),

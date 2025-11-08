@@ -97,8 +97,8 @@ Findings:
 
 -   Minor weight loss with drug control
 -   Significant weight loss with DSS, especially after day 6
-- Upa weight loss was as bad and often worse than DSS alone
-- Vada/Upa had more weight loss than DSS alone initially, but matched DSS after day 8 (better than Upa alone)
+-   Upa weight loss was as bad and often worse than DSS alone
+-   Vada/Upa had more weight loss than DSS alone initially, but matched DSS after day 8 (better than Upa alone)
 
 #### Graph blood by day
 
@@ -125,10 +125,10 @@ daily2 |>
 
 Findings:
 
-- No bleeding in negative control or drug control
-- Onse of bleeding starting at day 5 in DSS, reached peak by dat 7-8
-- Very similar progression of bleeding in Upa group
-- Delayed onset of bleeding in Vada/Upa group, consistently delayed in onset/severity by ~ 1 day
+-   No bleeding in negative control or drug control
+-   Onse of bleeding starting at day 5 in DSS, reached peak by dat 7-8
+-   Very similar progression of bleeding in Upa group
+-   Delayed onset of bleeding in Vada/Upa group, consistently delayed in onset/severity by \~ 1 day
 
 #### Let's compare the colon weights by group
 
@@ -150,8 +150,7 @@ dat |>
   theme_linedraw(base_size = 16, base_family = "Arial")
 ```
 
-It looks like we need to control for body weight.
-Let's normalize colon weight to body weight to see if this is cleaner.
+It looks like we need to control for body weight. Let's normalize colon weight to body weight to see if this is cleaner.
 
 ```{r}
 #| warning: false
@@ -184,10 +183,10 @@ dat |>
 
 Findings:
 
-- Minor loss of weight with drug control
-- Big increase in colon weight with DSS
-- Partial restoration with Upa
-- More restoration with Vada/Upa, NS difference from normal colon
+-   Minor loss of weight with drug control
+-   Big increase in colon weight with DSS
+-   Partial restoration with Upa
+-   More restoration with Vada/Upa, NS difference from normal colon
 -   Appears more reasonable after we normalize to body weight
 
 #### Now compare the colon lengths by group
@@ -210,8 +209,7 @@ dat |>
   theme_linedraw(base_size = 16, base_family = "Arial")
 ```
 
-It looks like we need to control for body weight.
-Let's try to normalize colon length to body weight.
+It looks like we need to control for body weight. Let's try to normalize colon length to body weight.
 
 ```{r}
 #| warning: false
@@ -276,11 +274,11 @@ dat |>
 
 Findings:
 
-- no change in weight to length ratio with drug control
-- big increase in weight to length ratio with DSS
-- partial restoration with Upa
-- more restoration with Vada/Upa, NS difference from normal colon
-- by comparing the ratio, we address differences in body weight and do not have to adjust for this in mice.
+-   no change in weight to length ratio with drug control
+-   big increase in weight to length ratio with DSS
+-   partial restoration with Upa
+-   more restoration with Vada/Upa, NS difference from normal colon
+-   by comparing the ratio, we address differences in body weight and do not have to adjust for this in mice.
 
 This makes sense.
 
@@ -319,13 +317,13 @@ fitc2 |>
 
 Findings:
 
-- had to exclude one very sick outlier with very severe leak (FITC measured > 150 ug/mL) in the Upa group
+-   had to exclude one very sick outlier with very severe leak (FITC measured \> 150 ug/mL) in the Upa group
 -   no change in FITC with drug control
 -   big increase in FITC with DSS - lots of leak as expected
 -   no significant change in FITC with Upa
 -   significant decrease in FITC with Vada/Upa - almost back to normal (NS differenc from normal)
-- not affected by adjustment for BW
-- with more money and time, we should increase sample size and measure FITC in all mice
+-   not affected by adjustment for BW
+-   with more money and time, we should increase sample size and measure FITC in all mice
 
 Makes sense - Upa does not have a significant effect on FITC, while Vada normalizes FITC.
 
@@ -353,11 +351,11 @@ dat |>
 
 Findings:
 
-- no difference with drug control
-- big inflamed spleen in DSS, collecting a lot of damaged epithelial cells and immune cells
-- partial recovery with Upa
-- more recovery with vada/upa 
-- still not entirely normal.
+-   no difference with drug control
+-   big inflamed spleen in DSS, collecting a lot of damaged epithelial cells and immune cells
+-   partial recovery with Upa
+-   more recovery with vada/upa
+-   still not entirely normal.
 
 #### Now compare the day 10 Disease Activity Index
 
@@ -381,13 +379,13 @@ dat |>
 
 Findings:
 
-- no difference with drug control
-- Ordinal, not truly continuous outcome, so problems with p values (lots of ties)
-- big disease activity with DSS
-- partial improvement with Upa
-- partial improvement with Vada/Upa
-- May need more recovery time 
-- Possibly 4 days recovery on water without DSS plus drugs?
+-   no difference with drug control
+-   Ordinal, not truly continuous outcome, so problems with p values (lots of ties)
+-   big disease activity with DSS
+-   partial improvement with Upa
+-   partial improvement with Vada/Upa
+-   May need more recovery time
+-   Possibly 4 days recovery on water without DSS plus drugs?
 
 #### Now compare the day 7 stool bleeding score
 
@@ -411,25 +409,205 @@ dat |>
 
 Findings:
 
-- no bleeding with drug control
-- Lots of bleeding peaking at day 8 in DSS
-- Slightly less bleeding with Upa
-- Slightly less bleeding with Vada/Upa
-- Ordinal, not truly continuous outcome, so problems with some p values (lots of ties)
-- Possibly need more recovery/healing time - 4 days on water without DSS plus treatment during this time?
+-   no bleeding with drug control
+
+-   Lots of bleeding peaking at day 8 in DSS
+
+-   Slightly less bleeding with Upa
+
+-   Slightly less bleeding with Vada/Upa
+
+-   Ordinal, not truly continuous outcome, so problems with some p values (lots of ties)
+
+-   Possibly need more recovery/healing time - 4 days on water without DSS plus treatment during this time?
+
+#### Now compare the Histology Scores from Masked Pathologist Yao Lee
+
+Pathologist Yao Lee scored H&E stained colon sections from each mouse in a masked fashion.
+
+Scores were given for inflammation (0-4), edema (0-4), epithelial damage (0-4), mucosal hyperplasia (0-4), and fibrosis (0-4).
+
+ A total histology score was calculated as the sum of these individual scores (0-20).
+Comparing by Arm, scores for  inflammation, edema, epithelial damage, mucosal hyperplasia, fibrosis, and total histology score.
+
+```{r}
+load("upa_vada_exp2_histo.Rdata")
+
+histo2 <- histo |> 
+  janitor::clean_names() |>
+  mutate(ied_score = inflammation + edema + epithelial_damage) |> 
+  mutate(rx = case_when(
+    rx == "vehicle" ~ "Water + Vehicle",
+    rx == "vehicle+ vada/upa" ~ "Water + Upa/Vada",
+    rx == "DSS" ~ "DSS + Vehicle",
+    rx == "DSS+upa" ~ "DSS + Upa",
+    rx == "DSS+ vada/upa" ~ "DSS + Upa/Vada"
+  )) |> 
+  mutate(rx = factor(rx, ordered = TRUE,
+          levels = c("Water + Vehicle", "Water + Upa/Vada",
+                     "DSS + Vehicle", "DSS + Upa",
+                     "DSS + Upa/Vada")))
+
+histo2 |>
+  group_by(rx) |>
+  ggplot(aes(y= inflammation, x = rx)) +
+  geom_boxplot() +
+  geom_quasirandom() +
+  labs(x = "Treatment Group",
+        y = "Inflammation Histology Score",
+        title = "Inflammation Histology Scores by Treatment Group",
+       caption = "Mean Values Shown in Red") +
+  scale_y_continuous(limits = c(0,4.7), breaks = seq(0, 4, by = 1)) +
+  ggsignif::geom_signif(comparisons = list(
+    c(1,3), c(3,4), c(3,5), c(4,5), c(1,4), c(1,5)),
+    test = "t.test",
+    step_increase = 0.10) +
+  scale_x_discrete(labels = label_wrap(8)) +
+  theme_linedraw(base_size = 16, base_family = "Arial") +
+  annotate("text", x = 2.49, y = 1.9, label = "1.9", size = 5, color ="red") +
+  annotate("text", x = 3.49, y = 1.9, label = "1.9", size = 5, color ="red") +
+  annotate("text", x = 4.49, y = 1.1, label = "1.1", size = 5, color ="red")
+
+histo2 |>
+  group_by(rx) |>
+  ggplot(aes(y= edema, x = rx)) +
+  geom_boxplot() +
+  geom_quasirandom() +
+   labs(x = "Treatment Group",
+        y = "Edema Histology Score",
+        title = "Edema Histology Scores by Treatment Group",
+       caption = "Mean Values Shown in Red") +
+  scale_y_continuous(limits = c(0,4), breaks = seq(0, 4, by = 1)) +
+  ggsignif::geom_signif(comparisons = list(
+    c(1,3), c(3,4), c(3,5), c(4,5), c(1,4),
+    c(1,5)),
+    test = "t.test",
+    step_increase = 0.10) +
+  scale_x_discrete(labels = label_wrap(8)) +
+  theme_linedraw(base_size = 16, base_family = "Arial") +
+  annotate("text", x = 2.49, y = 0.8, label = "0.8", size = 5, color ="red") +
+  annotate("text", x = 3.49, y = 0.7, label = "0.7", size = 5, color ="red") +
+  annotate("text", x = 4.49, y = 0.3, label = "0.3", size = 5, color ="red")
+
+histo2 |>
+  group_by(rx) |>
+  ggplot(aes(y= epithelial_damage, x = rx)) +
+  geom_boxplot() +
+  geom_quasirandom() +
+   labs(x = "Treatment Group",
+        y = "Epithelial Damage Histology Score",
+        title = "Epithelial Damage Histology Scores by Treatment Group",
+       caption = "Mean Values Shown in Red") +
+  scale_y_continuous(limits = c(0, 6.2), breaks = seq(0, 4, by = 1)) +
+  ggsignif::geom_signif(comparisons = list(
+    c(1,3), c(3,4), c(3,5), c(4,5), c(1,4),
+    c(1,5)),
+    test = "t.test",
+    step_increase = 0.10) +
+  scale_x_discrete(labels = label_wrap(8)) +
+  theme_linedraw(base_size = 16, base_family = "Arial") +
+  annotate("text", x = 2.49, y = 2.7, label = "2.7", size = 5, color ="red") +
+  annotate("text", x = 3.49, y = 1.9, label = "1.9", size = 5, color ="red") +
+  annotate("text", x = 4.49, y = 1.2, label = "1.2", size = 5, color ="red")
+
+histo2 |>
+  group_by(rx) |>
+  ggplot(aes(y= epithelial_damage_extent, x = rx)) +
+  geom_boxplot() +
+  geom_quasirandom() +
+   labs(x = "Treatment Group",
+        y = "Epithelial Damage Extent Histology Score",
+        title = "Epithelial Damage Extent Histology Scores by Treatment Group" ) +
+   ggsignif::geom_signif(comparisons = list(
+    c(1,3), c(3,4), c(3,5), c(4,5), c(1,4),
+    c(1,5)),
+    test = "t.test",
+    step_increase = 0.10) +
+  scale_x_discrete(labels = label_wrap(8)) +
+  scale_y_continuous(limits = c(0,4.7), breaks = seq(0, 4, by = 1)) +
+  theme_linedraw(base_size = 16, base_family = "Arial")
+
+histo2 |>
+  group_by(rx) |>
+  ggplot(aes(y= mucosal_hyperplasia, x = rx)) +
+  geom_boxplot() +
+  geom_quasirandom() +
+   labs(x = "Treatment Group",
+        y = "Mucosal Hyperplasia Histology Score",
+        title = "Mucosal Hyperplasia Histology Scores by Treatment Group" ) +
+  scale_x_discrete(labels = label_wrap(8)) +
+  scale_y_continuous(limits = c(0,4.1), breaks = seq(0, 4, by = 1)) +
+  theme_linedraw(base_size = 16, base_family = "Arial")
+
+histo2 |>
+  group_by(rx) |>
+  ggplot(aes(y= fibrosis, x = rx)) +
+  geom_boxplot() +
+  geom_quasirandom() +
+   labs(x = "Treatment Group",
+        y = "Fibrosis Histology Score",
+        title = "Fibrosis Histology Scores by Treatment Group" ) +
+  scale_x_discrete(labels = label_wrap(8)) +
+  scale_y_continuous(limits = c(0,4.1), breaks = seq(0, 4, by = 1)) +
+  theme_linedraw(base_size = 16, base_family = "Arial")
+
+histo2 |>
+  group_by(rx) |>
+  ggplot(aes(y= tot_histo_score, x = rx)) +
+  geom_boxplot() +
+  geom_quasirandom() +
+   labs(x = "Treatment Group",
+        y = "Total Histology Score",
+        title = "Total Histology Scores by Treatment Group",
+       caption = "Mean Values Shown in Red") +
+   ggsignif::geom_signif(comparisons = list(
+    c(1,3), c(3,4), c(3,5), c(4,5), c(1,4),
+    c(1,5)),
+    test = "t.test",
+    step_increase = 0.10) +
+  scale_x_discrete(labels = label_wrap(8)) +
+  scale_y_continuous(breaks = seq(0, 15, by = 3)) +
+  theme_linedraw(base_size = 16, base_family = "Arial")  +
+  annotate("text", x = 2.49, y = 7.1, label = "7.1", size = 5, color = "red") +
+  annotate("text", x = 3.49, y = 5.9, label = "5.9", size = 5, color = "red") +
+  annotate("text", x = 4.49, y = 3.6, label = "3.6", size = 5, color = "red")
+
+histo2 |>
+  group_by(rx) |>
+  ggplot(aes(y= ied_score, x = rx)) +
+  geom_boxplot() +
+  geom_quasirandom() +
+   labs(x = "Treatment Group",
+        y = "IED (Inflammation, Edema, and Epithelial Damage)\nHistology Score",
+        title = "IED (Inflammation, Edema, and Epithelial Damage)\nHistology Scores by Treatment Group",
+        caption = "Mean Values Shown in Red") +
+   ggsignif::geom_signif(comparisons = list(
+    c(1,3), c(3,4), c(3,5), c(4,5), c(1,4),
+    c(1,5)),
+    test = "t.test",
+    step_increase = 0.10) +
+  scale_x_discrete(labels = label_wrap(8)) +
+  scale_y_continuous(breaks = seq(0, 12, by = 3)) +
+  theme_linedraw(base_size = 16, base_family = "Arial") +
+  annotate("text", x = 2.48, y = 5.4, label = "5.4", size = 5, color = "red") +
+  annotate("text", x = 3.48, y = 4.5, label = "4.5", size = 5, color = "red") +
+  annotate("text", x = 4.48, y = 2.6, label = "2.6", size = 5, color = "red") 
+```
+
 
 ## Conclusions
-In this DSS colitis model, we saw weight loss, bleeding, and short, thick colons as expected in the DSS arm. The drug control arm had minimal weight loss, no bleeding, and no other changes.
 
-Upa alone did not improve weight loss, with minimal effects on bleeding and FITC leak. There was partial improvement in BW-adjusted colon weight, BW-adjusted length, colon weight/length ratio, and spleen size.
+In this DSS colitis model, we saw weight loss, bleeding, and short, thick colons,
+with substantial histologic inflammation, edema, and epithelial damage as expected in the DSS arm. The drug control arm had minimal weight loss, no bleeding, and no other changes.
 
-The combination of Vada with Upa improved weight loss modestly, delayed bleeding by about 1 day, and significantly improved FITC leak back to near normal. There was more improvement in BW-adjusted colon weight, BW-adjusted length, colon weight/length ratio, all of which returned to near-normal (NS). The spleen size also improved more than with Upa alone, but did not return to normal.
+Upa alone did not improve weight loss, with minimal effects on bleeding and FITC leak, and modest effects on histologic inflammation, edema, and epithelial damage. There was partial improvement in BW-adjusted colon weight, BW-adjusted length, colon weight/length ratio, and spleen size.
+
+The combination of Vada with Upa improved weight loss modestly, delayed bleeding by about 1 day, and significantly improved FITC leak back to near normal. There was more improvement in BW-adjusted colon weight, BW-adjusted length, colon weight/length ratio, all of which returned to near-normal (NS). The spleen size also improved more than with Upa alone, but did not return to normal. Histologically, Vada/Upa improved inflammation, edema, and epithelial damage scores significantly, and by more than Upa alone (not quite significant with N=10 per group), but not back to normal.
 
 ## Next Steps:
 
 We are continuing to examine:
 
-- Histology scoring
-- RT-PCR for transcription of key genes in inflammation and barrier function
-- Western blots of key proteins in barrier function and inflammation
-- Immunohistochemistry of key proteins in barrier function and inflammation
+-   RT-PCR for transcription of key genes in inflammation and barrier function
+-   Western blots of key proteins in barrier function and inflammation
+-   Immunohistochemistry of key proteins in barrier function and inflammation

@@ -643,5 +643,5 @@ We are continuing to examine:
 5. What is the optimal duration of Upa administration? (with DSS only, longer than DSS?)
 6. What is the optimal duration of Vada administration? (with Upa only, longer than Upa?)
 7. What is the optimal duration of recovery time after DSS ends? (2 days, 4 days, 7 days?)
-
+8. One possible idea - treatment instead of prevention - 3% DSS for 7d, then start Upa/Vada x 3d, then vada alone for 3d vs. untreated d8-13 vs Upa only d8-13
 

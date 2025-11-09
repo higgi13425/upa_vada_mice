@@ -397,12 +397,12 @@ fitc2 |>
   annotate("text", x = 4.44, y = 7.23, label = "7.23", size = 5, color ="red")
   
 
-fitc2 |>
-  mutate(ear_tag = as.factor(ear_tag)) |>
-  left_join(day10wt) |>
-  filter(fitc_ug_ml <100) |>
-  group_by(rx) |>
-  summarise(mean_fitc_ug_ml = mean(fitc_ug_ml, na.rm = TRUE))
+# fitc2 |>
+#   mutate(ear_tag = as.factor(ear_tag)) |>
+#   left_join(day10wt) |>
+#   filter(fitc_ug_ml <100) |>
+#   group_by(rx) |>
+#   summarise(mean_fitc_ug_ml = mean(fitc_ug_ml, na.rm = TRUE))
 
 ```
 
@@ -453,6 +453,7 @@ Findings:
 #### Now compare the day 10 Disease Activity Index
 
 ```{r}
+#| warning: false
 dat |> 
   ggplot(aes(y= day10_dia, x = rx)) +
   geom_boxplot() + 
@@ -483,7 +484,7 @@ Findings:
 #### Now compare the day 7 stool bleeding score
 
 ```{r}
-
+#| warning: false
 dat |> 
   ggplot(aes(y= day7_stool_bleeding, x = rx)) +
   geom_boxplot() + 
@@ -688,8 +689,8 @@ histo2 |>
 ```
 
 
-## Conclusions
-=======
+## Findings
+
 -   Lots of bleeding peaking at day 8 in DSS
 -   Slightly less bleeding with Upa
 -   Slightly less bleeding with Vada/Upa
@@ -699,7 +700,6 @@ histo2 |>
 ## Conclusions
 
 In this DSS colitis model, we saw weight loss, bleeding, and short, thick colons as expected in the DSS arm. The drug control arm had minimal weight loss, no bleeding, and no other changes.
->>>>>>> refs/remotes/origin/main
 
 In this DSS colitis model, we saw weight loss, bleeding, and short, thick colons,
 with substantial histologic inflammation, edema, and epithelial damage as expected in the DSS arm. The drug control arm had minimal weight loss, no bleeding, and no other changes.

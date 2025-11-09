@@ -7,7 +7,26 @@ format:
 editor: visual
 ---
 
-Set up libraries to run code.
+## DSS Mouse Experiment 2
+
+This experiment was performed to test the treatment of DSS colitis with Upa alone vs. Upa/Vada.
+
+This experiment used DSS in water at 3% for 8 days, rather than the planned 7, because the mice were slow to develop rectal bleeding. This led to only only one day of rest on regular drinking water.
+
+Each arm of the study included C57BL6 male mice, 5 or 10 per group.
+
+Drug treatment with Upa and/or Vada started on Experiment day 0, the day before DSS started (DSS was started on Day 1). 
+
+The groups were:
+
+1.  Negative controls (no DSS, vehicle gavage) - 5 mice - one was lost
+2.  Drug controls (no DSS, Upa 30 mpk, Vada 3 mpk) - 5 mice
+3.  DSS positive controls for colitis (DSS, vehicle) - 10 mice
+4.  DSS + Upa 30 mpk - 10 mice (anti-inflamm rx) (one outlier very sick)
+5.  DSS + Upa 30 mpk + vada 3 mpk - 10 mice (anti-inflamm + BET)
+
+
+## Set up libraries to run code.
 
 ```{r setup}
 #| warning: false
@@ -18,24 +37,6 @@ library(janitor)
 library(ggbeeswarm)
 library(scales)
 ```
-
-## DSS Mouse Experiment 2
-
-This experiment was to test Upa/Vada vs Upa alone vs. DSS colitis.
-
-This experiment used DSS in water at 3% for 8 days, rather than the planned 7, because the mice were slow to develop rectal bleeding. This led to only only one day of rest on regular drinking water.
-
-Each arm of the study included C57BL6 male mice, 5 or 10 per group.
-
-Drug treatment with Upa and/or Vada started the day before DSS started (Day 1), on Experiment day 0.
-
-The groups were:
-
-1.  Negative controls (no DSS, vehicle gavage) - 5 mice - one lost
-2.  Drug controls (no DSS, Upa 30 mpk, Vada 3 mpk) - 5 mice
-3.  DSS positive controls (DSS, vehicle) - 10 mice
-4.  DSS + Upa 30 mpk - group 5 - 10 mice (anti-inf rx) (one outlier very sick)
-5.  DSS + Upa 30 mpk + vada 3 mpk - 10 mice (anti-inf + BET)
 
 ## Read in Data
 
@@ -70,16 +71,20 @@ dat_daily|>
   left_join(dat2, by = join_by(ear_tag)) ->
 daily2
 
-fitc1 <- read_xlsx("FITC results with methods.xlsx", skip = 2) |> 
+fitc1 <- read_xlsx("serum FITC (corrected).xlsx") |> 
   janitor::clean_names() |> 
-  select(1:2) |> 
+  select(1:3) |> 
   slice(1:23) |> 
-  rename(ear_tag = mouse)
+  rename(ear_tag = name) |> 
+  mutate(ear_tag = as.factor(ear_tag))
+
+fitc1[4,3] <- 0
+fitc1[19,3] <- 0
 
 fitc2 <- left_join(fitc1, dat2)
 ```
 
-#### Graph BW by day
+#### Graph smoothed BW by day by Arm
 
 ```{r}
 #| warning: false
@@ -100,7 +105,7 @@ Findings:
 -   Upa weight loss was as bad and often worse than DSS alone
 -   Vada/Upa had more weight loss than DSS alone initially, but matched DSS after day 8 (better than Upa alone)
 
-#### Graph blood by day
+#### Graph smoothed ordinal blood by day by Arm
 
 Note no stool blood in the controls, and minimal delay in the onset and severity of stool blood with Upa, but noticeably delayed blood when Vada was added to Upa.
 
@@ -150,7 +155,9 @@ dat |>
   theme_linedraw(base_size = 16, base_family = "Arial")
 ```
 
-It looks like we need to control for body weight. Let's normalize colon weight to body weight to see if this is cleaner.
+
+It looks like we need to control for body weight. Let's normalize colon weight to body weight by mouse to see if this is cleaner.
+
 
 ```{r}
 #| warning: false
@@ -209,7 +216,9 @@ dat |>
   theme_linedraw(base_size = 16, base_family = "Arial")
 ```
 
+
 It looks like we need to control for body weight. Let's try to normalize colon length to body weight.
+
 
 ```{r}
 #| warning: false
@@ -251,7 +260,9 @@ Findings:
 
 -   Looks more reasonable after we normalize to body weight
 
-#### Now compare the colon 'density' (ratio of grams weight/cm length) by group
+### Now compare the colon 'density' (ratio of grams weight/cm length) by group. 
+
+No need for BW adjustment.
 
 ```{r}
 dat |> 
@@ -292,7 +303,7 @@ From a 150 mg/mL stock solution of 4 kDa FITC-Dextran, we used 4.27 microL, and 
 
 The blank control was made with 25 microL of FITC negative serum and added 75 microL of saline,
 
-Fluorescence was induced with a 488 nm excitation laser through a 480 nm +/1 20 nm filter, and emissions were read 508 nm +/- 20 nm to capture the 525 nm peak, and the detector gain was set at 35.
+Fluorescence was induced with a 488 nm excitation laser through a 480 nm +/- 20 nm filter, and emissions were read at 508 nm +/- 20 nm to capture the 525 nm peak, and the detector gain was set at 35.
 
 ```{r}
 fitc2 |> 
@@ -318,10 +329,12 @@ fitc2 |>
 Findings:
 
 -   had to exclude one very sick outlier with very severe leak (FITC measured \> 150 ug/mL) in the Upa group
+
+- two values calculated as slightly negative, corrected to zero
 -   no change in FITC with drug control
 -   big increase in FITC with DSS - lots of leak as expected
 -   no significant change in FITC with Upa
--   significant decrease in FITC with Vada/Upa - almost back to normal (NS differenc from normal)
+-   significant decrease in FITC with Vada/Upa - almost back to normal (NS difference from normal)
 -   not affected by adjustment for BW
 -   with more money and time, we should increase sample size and measure FITC in all mice
 
@@ -596,6 +609,17 @@ histo2 |>
 
 
 ## Conclusions
+=======
+-   Lots of bleeding peaking at day 8 in DSS
+-   Slightly less bleeding with Upa
+-   Slightly less bleeding with Vada/Upa
+-   Ordinal, not truly continuous outcome, so problems with some p values (lots of ties)
+-   Possibly need more recovery/healing time - 4 days on water without DSS plus treatment during this time?
+
+## Conclusions
+
+In this DSS colitis model, we saw weight loss, bleeding, and short, thick colons as expected in the DSS arm. The drug control arm had minimal weight loss, no bleeding, and no other changes.
+>>>>>>> refs/remotes/origin/main
 
 In this DSS colitis model, we saw weight loss, bleeding, and short, thick colons,
 with substantial histologic inflammation, edema, and epithelial damage as expected in the DSS arm. The drug control arm had minimal weight loss, no bleeding, and no other changes.
@@ -608,6 +632,16 @@ The combination of Vada with Upa improved weight loss modestly, delayed bleeding
 
 We are continuing to examine:
 
--   RT-PCR for transcription of key genes in inflammation and barrier function
 -   Western blots of key proteins in barrier function and inflammation
 -   Immunohistochemistry of key proteins in barrier function and inflammation
+
+## Future Micro-Experiments
+1. What is the optimal dose of Upa?
+2. What is the optimal dose of Vada?
+3. When is the optimal time to start Upa administration? (before, with, after DSS?)
+4. When is the optimal time to start Vada administration? (before, with, after DSS, overlap with Upa? after Upa?)
+5. What is the optimal duration of Upa administration? (with DSS only, longer than DSS?)
+6. What is the optimal duration of Vada administration? (with Upa only, longer than Upa?)
+7. What is the optimal duration of recovery time after DSS ends? (2 days, 4 days, 7 days?)
+
+

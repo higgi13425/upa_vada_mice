@@ -6,42 +6,30 @@ format:
   docx: default
 editor: visual
 ---
+
 ## Background
 
-All current treatments for IBD are focused on inflammation. Four main classes of targeted
-anti-inflammatory therapies exist, including anti-TNF agents, anti-integrin agents, anti-IL-12/23 agents, and JAK inhibitors. However, none of these therapies directly target epithelial barrier dysfunction, which is increasingly recognized as a key driver of disease activity in IBD. These therapies also all have a 'therapeutic ceiling', with only ~ 40-50% of patients achieving clinical remission, and ~ 20-30% achieving endoscopic remission. We would like to find a way to break through this ceiling, improving therapeutic effectiveness and
-approaching 100% remission.
+All current treatments for IBD are focused on inflammation. Four main classes of targeted anti-inflammatory therapies exist, including anti-TNF agents, anti-integrin agents, anti-IL-12/23 agents, and JAK inhibitors. However, none of these therapies directly target epithelial barrier dysfunction, which is increasingly recognized as a key driver of disease activity in IBD. These therapies also all have a 'therapeutic ceiling', with only \~ 40-50% of patients achieving clinical remission, and \~ 20-30% achieving endoscopic remission. We would like to find a way to break through this ceiling, improving therapeutic effectiveness and approaching 100% remission.
 
 In fact, some anti-inflammatory pathways, including JAKi, anti-IL23, and anti-TNF, may improve barrier function indirectly by reducing inflammation, but by inhibiting the actions of STAT3, they also interfere with the response to epithelial hypoxia by hypoxia-inducible factors (HIFs),and can potentially delay wound healing of the intestinal epithelium.
 
-This leads to patients feeling better (less of the cardinal signs of inflammation,
-pain, swelling, redness, heat, and loss of function), but with persistent barrier dysfunction, which may lead to ongoing subclinical inflammation, as bacteria cross the intestinal
-epithelium, stimulating inflammatory flares, and a failure to achieve true mucosal healing.
+This leads to patients feeling better (less of the cardinal signs of inflammation, pain, swelling, redness, heat, and loss of function), but with persistent barrier dysfunction, which may lead to ongoing subclinical inflammation, as bacteria cross the intestinal epithelium, stimulating inflammatory flares, and a failure to achieve true mucosal healing.
 
 ### Patient Data
+
 We do see that patients with Acute Severe Ulcerative Colitis often respond quickly to JAK inhibitors like Upadacitinib (Upa), but evenutally relapse, suggesting that the underlying barrier dysfunction is not being addressed.
 
-We tested this by looking at gene transcription in ASUC patients who responded or did not 
-respond to JAKi/IVCS therapy. The main difference we found was that the failing patients
-did not have a strong HIF-directed transcriptional program (which responds to hypoxia by increasing mechanisms of wound healing), suggesting that failure to
-improve barrier function was a key driver of treatment failure. This was presented
-at Digestive Disease Week 2025.
+We tested this by looking at gene transcription in ASUC patients who responded or did not respond to JAKi/IVCS therapy. The main difference we found was that the failing patients did not have a strong HIF-directed transcriptional program (which responds to hypoxia by increasing mechanisms of wound healing), suggesting that failure to improve barrier function was a key driver of treatment failure. This was presented at Digestive Disease Week 2025.
 
 ### Mouse Genetic Data
-We then tested whether mice with overexpressed HIF1 and an always-on HIF transcriptional
-program have a different response to DSS induced colitis. Compared to wild type mice (WT),
-the HIF-OE mice have ~ 40% less severe colitis. They are super-healers like the 
-Wolverine character in the Marvel Cinematic Universe.
 
-We then tested how well an anti-inflammatory JAKi therapy would work against DSS colitis.
-In WT mice, Upa significantly improved DSS colitis by ~ 50%, as expected, as this drug
-is FDA approved for human IBD. 
+We then tested whether mice with overexpressed HIF1 and an always-on HIF transcriptional program have a different response to DSS induced colitis. Compared to wild type mice (WT), the HIF-OE mice have \~ 40% less severe colitis. They are super-healers like the Wolverine character in the Marvel Cinematic Universe.
 
-We then wanted to see if the rapid healing of HIF-OE mice and the anti-inflammatory
-effect of JAKi would be additive or synergistic. We treated WT mice with Upa, HIF-OE mice with vehicle, and HIF-OE mice with Upa. We found that the HIF-OE mice treated with Upa had the least severe colitis, with ~ 95% improvement, suggesting that targeting both inflammation and barrier function was complementary, and is a promising approach to IBD therapy. This was presented at Digestive Disease Week 2025.
+We then tested how well an anti-inflammatory JAKi therapy would work against DSS colitis. In WT mice, Upa significantly improved DSS colitis by \~ 50%, as expected, as this drug is FDA approved for human IBD.
 
-We then wanted to look at whether we could reproduce the rapid-healing HIF-OE phenotype with a drug that stabilizes HIF, such as Vadadustat (Vada), a HIF prolyl-hydroxylase inhibitor (HIF-PHI) which is FDA approved for the treatment of anemia in chronic kidney disease.
-This drug should turn on the HIF transcriptional program for wound healing in the intestine.
+We then wanted to see if the rapid healing of HIF-OE mice and the anti-inflammatory effect of JAKi would be additive or synergistic. We treated WT mice with Upa, HIF-OE mice with vehicle, and HIF-OE mice with Upa. We found that the HIF-OE mice treated with Upa had the least severe colitis, with \~ 95% improvement, suggesting that targeting both inflammation and barrier function was complementary, and is a promising approach to IBD therapy. This was presented at Digestive Disease Week 2025.
+
+We then wanted to look at whether we could reproduce the rapid-healing HIF-OE phenotype with a drug that stabilizes HIF, such as Vadadustat (Vada), a HIF prolyl-hydroxylase inhibitor (HIF-PHI) which is FDA approved for the treatment of anemia in chronic kidney disease. This drug should turn on the HIF transcriptional program for wound healing in the intestine.
 
 ## DSS Mouse Experiment 2
 
@@ -51,7 +39,7 @@ This experiment used DSS in water at 3% for 8 days, rather than the planned 7, b
 
 Each arm of the study included C57BL6 male mice, 5 or 10 per group.
 
-Drug treatment with Upa and/or Vada started on Experiment day 0, the day before DSS started (DSS was started on Day 1). 
+Drug treatment with Upa and/or Vada started on Experiment day 0, the day before DSS started (DSS was started on Day 1).
 
 The groups were:
 
@@ -60,7 +48,6 @@ The groups were:
 3.  DSS positive controls for colitis (DSS, vehicle) - 10 mice
 4.  DSS + Upa 30 mpk - 10 mice (anti-inflamm rx) (one outlier very sick)
 5.  DSS + Upa 30 mpk + vada 3 mpk - 10 mice (anti-inflamm + BET)
-
 
 ## Set up libraries to run code.
 
@@ -72,6 +59,7 @@ library(readxl)
 library(janitor)
 library(ggbeeswarm)
 library(scales)
+library(here)
 ```
 
 ## Read in Data
@@ -191,9 +179,7 @@ dat |>
   theme_linedraw(base_size = 16, base_family = "Arial")
 ```
 
-
 It looks like we need to control for body weight. Let's normalize colon weight to body weight by mouse to see if this is cleaner.
-
 
 ```{r}
 #| warning: false
@@ -263,9 +249,7 @@ dat |>
   theme_linedraw(base_size = 16, base_family = "Arial")
 ```
 
-
 It looks like we need to control for body weight. Let's try to normalize colon length to body weight.
-
 
 ```{r}
 #| warning: false
@@ -319,7 +303,7 @@ Findings:
 
 -   Looks more reasonable after we normalize to body weight
 
-### Now compare the colon 'density' (ratio of grams weight/cm length) by group. 
+### Now compare the colon 'density' (ratio of grams weight/cm length) by group.
 
 No need for BW adjustment.
 
@@ -337,13 +321,15 @@ dat |>
     c(1,2), c(1,3), c(3,4), c(3,5), c(4,5), c(1,4),
     c(1,5)),
     test = "t.test",
-    step_increase = 0.12) +
+    step_increase = 0.16) +
+  scale_y_continuous(limits= c(0,70)) +
   scale_x_discrete(labels = label_wrap(6)) +
   theme_linedraw(base_size = 16, base_family = "Arial") +
   annotate("text", x = 2.44, y = 33.8, label = "33.8", size = 5, color ="red") +
-  annotate("text", x = 3.44, y = 29.5, label = "29.5", size = 5, color ="red") +
+  annotate("text", x = 3.44, y = 28.3, label = "29.5", size = 5, color ="red") +
   annotate("text", x = 4.44, y = 24.0, label = "24.0", size = 5, color ="red")
   
+ggsave(here("images/colon_ratio.png"))
 
 # dat |>
 #   mutate(ear_tag = as.factor(ear_tag)) |>
@@ -382,20 +368,22 @@ fitc2 |>
   geom_beeswarm() +
   labs( x = "Treatment Group",
         y = "Serum FITC in micrograms/mL",
-        caption = "Pairwise Comparisons with Student's t test\nExcluded one (very sick) DSS/Upa outlier with Serum FITC > 150 ug/mL\nMean Values in Red", 
+        caption = "Pairwise Comparisons with Student's t test\nExcluded one (very sick) DSS+Upa outlier with Serum FITC > 150 ug/mL\nMean Values in Red", 
         title = "Colon Leak by Treatment Group",
-        subtitle = "Measured by Serum FITC Dextran in ~ 50% of mice")+ 
+        subtitle = "Measured by Serum FITC Dextran in 50% of mice")+ 
   ggsignif::geom_signif(comparisons = list(
     c(1,2), c(1,3), c(3,4), c(3,5), c(4,5), c(1,4),
     c(2,5), c(1,5)),
     test = "t.test",
-    step_increase = 0.12) +
+    step_increase = 0.18) +
+  scale_y_continuous(limits = c(0,53)) +
   scale_x_discrete(labels = label_wrap(6)) +
   theme_linedraw(base_size = 16, base_family = "Arial") +
   annotate("text", x = 2.44, y = 18.3, label = "18.3", size = 5, color ="red") +
   annotate("text", x = 3.44, y = 13.1, label = "13.1", size = 5, color ="red") +
   annotate("text", x = 4.44, y = 7.23, label = "7.23", size = 5, color ="red")
   
+ggsave(here("images/fitc.png"))
 
 # fitc2 |>
 #   mutate(ear_tag = as.factor(ear_tag)) |>
@@ -410,12 +398,18 @@ Findings:
 
 -   had to exclude one very sick outlier with very severe leak (FITC measured \> 150 ug/mL) in the Upa group
 
-- two values calculated as slightly negative, corrected to zero
+-   two values calculated as slightly negative, corrected to zero
+
 -   no change in FITC with drug control
+
 -   big increase in FITC with DSS - lots of leak as expected
+
 -   no significant change in FITC with Upa
+
 -   significant decrease in FITC with Vada/Upa - almost back to normal (NS difference from normal)
+
 -   not affected by adjustment for BW
+
 -   with more money and time, we should increase sample size and measure FITC in all mice
 
 Makes sense - Upa does not have a significant effect on FITC, while Vada normalizes FITC.
@@ -521,8 +515,7 @@ Pathologist Yao Lee scored H&E stained colon sections from each mouse in a maske
 
 Scores were given for inflammation (0-4), edema (0-4), epithelial damage (0-4), mucosal hyperplasia (0-4), and fibrosis (0-4).
 
- A total histology score was calculated as the sum of these individual scores (0-20).
-Comparing by Arm, scores for  inflammation, edema, epithelial damage, mucosal hyperplasia, fibrosis, and total histology score.
+A total histology score was calculated as the sum of these individual scores (0-20). Comparing by Arm, scores for inflammation, edema, epithelial damage, mucosal hyperplasia, fibrosis, and total histology score.
 
 ```{r}
 load("upa_vada_exp2_histo.Rdata")
@@ -688,7 +681,6 @@ histo2 |>
   annotate("text", x = 4.48, y = 2.6, label = "2.6", size = 5, color = "red") 
 ```
 
-
 ## Findings
 
 -   Lots of bleeding peaking at day 8 in DSS
@@ -701,8 +693,7 @@ histo2 |>
 
 In this DSS colitis model, we saw weight loss, bleeding, and short, thick colons as expected in the DSS arm. The drug control arm had minimal weight loss, no bleeding, and no other changes.
 
-In this DSS colitis model, we saw weight loss, bleeding, and short, thick colons,
-with substantial histologic inflammation, edema, and epithelial damage as expected in the DSS arm. The drug control arm had minimal weight loss, no bleeding, and no other changes.
+In this DSS colitis model, we saw weight loss, bleeding, and short, thick colons, with substantial histologic inflammation, edema, and epithelial damage as expected in the DSS arm. The drug control arm had minimal weight loss, no bleeding, and no other changes.
 
 Upa alone did not improve weight loss, with minimal effects on bleeding and FITC leak, and modest effects on histologic inflammation, edema, and epithelial damage. There was partial improvement in BW-adjusted colon weight, BW-adjusted length, colon weight/length ratio, and spleen size.
 
@@ -716,12 +707,12 @@ We are continuing to examine:
 -   Immunohistochemistry of key proteins in barrier function and inflammation
 
 ## Future Micro-Experiments
-1. What is the optimal dose of Upa?
-2. What is the optimal dose of Vada?
-3. When is the optimal time to start Upa administration? (before, with, after DSS?)
-4. When is the optimal time to start Vada administration? (before, with, after DSS, overlap with Upa? after Upa?)
-5. What is the optimal duration of Upa administration? (with DSS only, longer than DSS?)
-6. What is the optimal duration of Vada administration? (with Upa only, longer than Upa?)
-7. What is the optimal duration of recovery time after DSS ends? (2 days, 4 days, 7 days?)
-8. One possible idea - treatment instead of prevention - 3% DSS for 7d, then start Upa/Vada x 3d, then vada alone for 3d vs. untreated d8-13 vs Upa only d8-13
 
+1.  What is the optimal dose of Upa?
+2.  What is the optimal dose of Vada?
+3.  When is the optimal time to start Upa administration? (before, with, after DSS?)
+4.  When is the optimal time to start Vada administration? (before, with, after DSS, overlap with Upa? after Upa?)
+5.  What is the optimal duration of Upa administration? (with DSS only, longer than DSS?)
+6.  What is the optimal duration of Vada administration? (with Upa only, longer than Upa?)
+7.  What is the optimal duration of recovery time after DSS ends? (2 days, 4 days, 7 days?)
+8.  One possible idea - treatment instead of prevention - 3% DSS for 7d, then start Upa/Vada x 3d, then vada alone for 3d vs. untreated d8-13 vs Upa only d8-13

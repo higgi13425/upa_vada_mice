@@ -485,7 +485,7 @@ dat |>
   geom_beeswarm() +
   labs( x = "Treatment Group",
         y = "Day 7 Stool Bleeding Score",
-        caption = "Pairwise Comparisons usiing Student's t Test\nToo many ties to calculate several p values",
+        caption = "Pairwise Comparisons using Student's t Test\nToo many ties to calculate several p values",
         title = "Day 7 Stool Bleeding Score by Treatment Group")+
   ggsignif::geom_signif(comparisons = list(
      c(1,3), c(2,3), c(3,4), c(3,5)),
@@ -665,9 +665,9 @@ histo2 |>
   geom_boxplot() +
   geom_quasirandom() +
    labs(x = "Treatment Group",
-        y = "IED (Inflammation, Edema, and Epithelial Damage)\nHistology Score",
+        y = "IED Total\nHistology Score",
         title = "IED (Inflammation, Edema, and Epithelial Damage)\nTotal Histology Scores by Treatment Group",
-        caption = "Mean Values Shown in Red") +
+        caption = "Pairwise Comparisons with Student's t test\nMean Value in Red") +
    ggsignif::geom_signif(comparisons = list(
     c(1,3), c(3,4), c(3,5), c(4,5), c(1,4),
     c(1,5)),

@@ -194,7 +194,7 @@ dat |>
   select(ear_tag, rx, colon_weight, body_weight_g) |> 
   mutate(adj_colon_wt = colon_weight/body_weight_g) |> 
   ggplot(aes(y= adj_colon_wt, x = rx)) +
-  geom_boxplot() + 
+  geom_boxplot(fill = rx) + 
   geom_beeswarm() +
   labs( x = "Treatment Group",
         y = "Colon Weight / body weight",
@@ -310,7 +310,7 @@ No need for BW adjustment.
 ```{r}
 dat |> 
   ggplot(aes(y= colon_density, x = rx)) +
-  geom_boxplot() + 
+  geom_boxplot(aes(fill = rx)) + 
   geom_beeswarm() +
   labs( x = "Treatment Group",
         y = "Colon Ratio in grams/cm",
@@ -326,7 +326,9 @@ dat |>
   theme_linedraw(base_size = 16, base_family = "Arial") +
   annotate("text", x = 2.44, y = 33.8, label = "33.8", size = 5, color ="red") +
   annotate("text", x = 3.44, y = 28.3, label = "29.5", size = 5, color ="red") +
-  annotate("text", x = 4.44, y = 24.0, label = "24.0", size = 5, color ="red")
+  annotate("text", x = 4.44, y = 24.0, label = "24.0", size = 5, color ="red") +
+ theme(legend.position = "none") +
+  scale_fill_manual(values = c("gray90", "gray50", "red", "orange", "green"))
   
 ggsave(here("images/colon_ratio.png"), width = 8, height = 6)
 
@@ -363,7 +365,7 @@ Fluorescence was induced with a 488 nm excitation laser through a 480 nm +/- 20 
 fitc2 |> 
   filter(fitc_ug_ml <100) |> 
   ggplot(aes(y= fitc_ug_ml, x = rx)) +
-  geom_boxplot() + 
+  geom_boxplot(aes(fill=rx)) + 
   geom_beeswarm() +
   labs( x = "Treatment Group",
         y = "Serum FITC in micrograms/mL",
@@ -377,9 +379,10 @@ fitc2 |>
   scale_y_continuous(limits = c(0,33)) +
   scale_x_discrete(labels = label_wrap(6)) +
   theme_linedraw(base_size = 16, base_family = "Arial") +
-  annotate("text", x = 2.44, y = 18.3, label = "18.3", size = 5, color ="red") +
-  annotate("text", x = 3.44, y = 13.1, label = "13.1", size = 5, color ="red") +
-  annotate("text", x = 4.44, y = 7.23, label = "7.23", size = 5, color ="red")
+  annotate("text", x = 2.29, y = 18.3, label = "18.3", size = 5, color ="red") +
+  annotate("text", x = 3.29, y = 13.1, label = "13.1", size = 5, color ="red") +
+  annotate("text", x = 4.29, y = 7.23, label = "7.23", size = 5, color ="red") + theme(legend.position = "none") +
+  scale_fill_manual(values = c("gray90", "gray50", "red", "orange", "green"))
   
 ggsave(here("images/fitc.png"), width = 8, height = 6)
 
@@ -639,7 +642,7 @@ histo2 |>
 histo2 |>
   group_by(rx) |>
   ggplot(aes(y= tot_histo_score, x = rx)) +
-  geom_boxplot() +
+  geom_boxplot(aes(fill=rx)) +
   geom_quasirandom() +
    labs(x = "Treatment Group",
         y = "Total Histology Score",
@@ -655,7 +658,8 @@ histo2 |>
   theme_linedraw(base_size = 16, base_family = "Arial")  +
   annotate("text", x = 2.49, y = 7.1, label = "7.1", size = 5, color = "red") +
   annotate("text", x = 3.49, y = 5.9, label = "5.9", size = 5, color = "red") +
-  annotate("text", x = 4.49, y = 3.6, label = "3.6", size = 5, color = "red")
+  annotate("text", x = 4.49, y = 3.6, label = "3.6", size = 5, color = "red") + theme(legend.position = "none") +
+  scale_fill_manual(values = c("gray90", "gray50", "red", "orange", "green"))
 
 histo2 |>
   group_by(rx) |>

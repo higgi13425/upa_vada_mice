@@ -379,9 +379,9 @@ fitc2 |>
   scale_y_continuous(limits = c(0,33)) +
   scale_x_discrete(labels = label_wrap(6)) +
   theme_linedraw(base_size = 16, base_family = "Arial") +
-  annotate("text", x = 2.29, y = 18.3, label = "18.3", size = 5, color ="red") +
-  annotate("text", x = 3.29, y = 13.1, label = "13.1", size = 5, color ="red") +
-  annotate("text", x = 4.29, y = 7.23, label = "7.23", size = 5, color ="red") + theme(legend.position = "none") +
+  annotate("text", x = 2.44, y = 18.3, label = "18.3", size = 5, color ="red") +
+  annotate("text", x = 3.44, y = 13.1, label = "13.1", size = 5, color ="red") +
+  annotate("text", x = 4.44, y = 7.23, label = "7.23", size = 5, color ="red") + theme(legend.position = "none") +
   scale_fill_manual(values = c("gray90", "gray50", "red", "orange", "green"))
   
 ggsave(here("images/fitc.png"), width = 8, height = 6)
@@ -664,7 +664,7 @@ histo2 |>
 histo2 |>
   group_by(rx) |>
   ggplot(aes(y= ied_score, x = rx)) +
-  geom_boxplot() +
+  geom_boxplot(aes(fill=rx)) +
   geom_quasirandom() +
    labs(x = "Treatment Group",
         y = "IED Total\nHistology Score",
@@ -678,9 +678,10 @@ histo2 |>
   scale_x_discrete(labels = label_wrap(8)) +
   scale_y_continuous(breaks = seq(0, 12, by = 3), limits = c(0,13)) +
   theme_linedraw(base_size = 16, base_family = "Arial") +
-  annotate("text", x = 2.48, y = 5.4, label = "5.4", size = 5, color = "red") +
-  annotate("text", x = 3.48, y = 4.5, label = "4.5", size = 5, color = "red") +
-  annotate("text", x = 4.48, y = 2.6, label = "2.6", size = 5, color = "red") 
+  annotate("text", x = 2.49, y = 5.4, label = "5.4", size = 5, color = "red") +
+  annotate("text", x = 3.49, y = 4.5, label = "4.5", size = 5, color = "red") +
+  annotate("text", x = 4.49, y = 2.6, label = "2.6", size = 5, color = "red") + theme(legend.position = "none") +
+  scale_fill_manual(values = c("gray90", "gray50", "red", "orange", "green"))
 
 ggsave(here("images/tot_histo.png"), width = 8, height = 6)
 
